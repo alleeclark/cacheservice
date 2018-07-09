@@ -70,7 +70,6 @@ func SaveToCache(w http.ResponseWriter, r *http.Request) {
 	}
 	cache[key] = &cacheEntry{data: data, expiration: time.Now().Add(time.Duration(dur) * time.Minute)}
 	log.Printf("Saving cache entry with key '%s' for %d minutes\n", key, dur)
-	log.Println(string(data))
 	defer r.Body.Close()
 }
 
@@ -96,7 +95,6 @@ func UpdateCacheEntry(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error unable to read body %s", err)
 	}
 	if string(cache[key].data) != string(data) {
-		// change to a custom error type
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
