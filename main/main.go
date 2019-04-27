@@ -50,9 +50,6 @@ func main() {
 	})
 	router.HandleFunc("/invalidatecache", cacheservice.InvalidateEntry)
 	go cacheservice.PurgeCache()
-
-	// go server.ListenAndServe()
-	// go http.ListenAndServeTLS(":443", "cert.perm", "key.perm", nil)
 	app := negroni.New()
 	app.UseHandler(router)
 	app.Run(":3000")
